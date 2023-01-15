@@ -18,10 +18,10 @@ def upload_file(data: UploadFile = File(...)) -> json:
         g_auth = GoogleAuth()
         drive = GoogleDrive(g_auth)
         g_auth.LocalWebserverAuth()
-        upload_to_google_drive(
+        output = upload_to_google_drive(
             drive=drive, g_auth=g_auth, data=data, folder_id=FOLDER_ID
         )
-        return {"Status": True}
+        return output
 
     except Exception:
         return {"Success": False}
@@ -33,7 +33,7 @@ def get_file(key: str) -> json:
         g_auth = GoogleAuth()
         drive = GoogleDrive(g_auth)
         output = get_file_for_key(drive=drive, key=key, folder_id=FOLDER_ID)
-        return {"Success": True, "file_name": output}
+        return output
 
     except Exception as ex:
         print("Error: ", str(ex))
